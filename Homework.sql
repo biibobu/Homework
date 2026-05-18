@@ -1,5 +1,5 @@
 WITH DeduplicatedData AS (
-    -- Крок 1: Залишаємо лише один найсвіжіший запис для кожного оголошення за весь час
+    
     SELECT 
         *,
         ROW_NUMBER() OVER (
@@ -9,7 +9,7 @@ WITH DeduplicatedData AS (
     FROM `uplifted-cinema-496108-a4.homework.marketing_ads`
 ),
 ChannelStats AS (
-    -- Крок 2 & 3: Тепер SUM спрацює коректно, бо ad_id більше не дублюються між днями
+
     SELECT 
         source,
         SUM(spend) AS total_spend,
@@ -26,7 +26,7 @@ ChannelStats AS (
     WHERE row_num = 1
     GROUP BY source
 )
--- Крок 4: Фінальний розрахунок (залишається без змін)
+
 SELECT 
     source,
     ROUND(total_spend, 2) AS total_spend,
